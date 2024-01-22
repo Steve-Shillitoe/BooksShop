@@ -14,7 +14,10 @@ namespace BooksShop
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            //To be able to inject an Interface with its implementation, 
+            //we need to register it in this DI container
             builder.Services.AddScoped < ILoggingService, ConsoleLoggingService>();
+            builder.Services.AddScoped<IBooksService, LocalBooksService>();
             await builder.Build().RunAsync();
         }
     }
